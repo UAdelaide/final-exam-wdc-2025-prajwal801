@@ -2,14 +2,14 @@ const express = require('express');
 const router = express.Router();
 const db = require('../models/db');
 
-// 🔐 Login route
+// 🔐 Login route using username and password
 router.post('/login', async (req, res) => {
-  const { email, password } = req.body;
+  const { username, password } = req.body;
 
   try {
     const [rows] = await db.query(
-      'SELECT user_id, username, role FROM Users WHERE email = ? AND password_hash = ?',
-      [email, password]
+      'SELECT user_id, username, role FROM Users WHERE username = ? AND password_hash = ?',
+      [username, password]
     );
 
     if (rows.length === 0) {
@@ -27,6 +27,7 @@ router.post('/login', async (req, res) => {
       return res.redirect('/owner-dashboard.html');
     }
       return res.redirect('/walker-dashboard.html');
+
 
   } catch (error) {
     console.error(error);
