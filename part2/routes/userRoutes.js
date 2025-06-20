@@ -25,9 +25,7 @@ router.post('/login', async (req, res) => {
     }
 
   } catch (error) {
-  console.error(error);  // shows full error in your terminal
-  res.status(500).json({ error: 'Login failed' });
-}
-
+    console.error(error);
+    res.status(500).json({ error: 'Login failed' });
   }
 });
