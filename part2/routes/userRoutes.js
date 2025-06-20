@@ -1,3 +1,15 @@
+const express = require('express');
+const router = express.Router();
+const db = require('../models/db'); // keep this
+const session = require('express-session');
+
+// Optional: only needed if session not defined in app.js
+router.use(session({
+  secret: 'dogwalk-secret',
+  resave: false,
+  saveUninitialized: true
+}));
+
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
