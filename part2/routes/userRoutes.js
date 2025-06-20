@@ -1,23 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../models/db'); // keep this
-const session = require('express-session');
+const db = require('../models/db');
 
-// Optional: only needed if session not defined in app.js
-router.use(session({
-  secret: 'dogwalk-secret',
-  resave: false,
-  saveUninitialized: true
-}));
-
+// 🔐 Login route
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const [rows] = await db.query(`
-      SELECT user_id, username, role FROM Users
-      WHERE email = ? AND password_hash = ?
-    `, [email, password]);
+    const [rows] = await db.query(
+      'SELECT user_id, username, role FROM Users WHERE email = ? AND password_hash = ?',
+      [email, password]
+    );
 
     if (rows.length === 0) {
       return res.status(401).send('Invalid credentials');
@@ -35,9 +28,10 @@ router.post('/login', async (req, res) => {
     } else {
       return res.redirect('/walker-dashboard.html');
     }
-
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Login failed' });
   }
 });
+
+module.exports = router;
