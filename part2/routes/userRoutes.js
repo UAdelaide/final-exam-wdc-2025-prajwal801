@@ -3,6 +3,7 @@ const router = express.Router();
 const db = require('../models/db');
 
 // 🔐 Login route using username and password
+// eslint-disable-next-line consistent-return
 router.post('/login', async (req, res) => {
   const { username, password } = req.body;
 
