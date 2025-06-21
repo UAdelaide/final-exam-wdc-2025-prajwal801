@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../models/db');
 
-// Login route
+// 🔐 Login route
 router.post('/login', async (req, res) => {
   const { username, password } = req.body;
 
@@ -30,6 +30,28 @@ router.post('/login', async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Login failed' });
+  }
+});
+
+// ✅ NEW: Get all dogs owned by the currently logged-in owner
+router.get('/dogs', async (req, res) => {
+  const ownerId = req.session?.user?.id;
+
+  if (!ownerId) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+
+  try {
+    const [rows] = await db.query(`
+      SELECT dog_id, name
+      FROM Dogs
+      WHERE owner_id = ?
+    `, [ownerId]);
+
+    res.json(rows);
+  } catch (error) {
+    console.error('❌ Error fetching owner dogs:', error.message);
+    res.status(500).json({ error: 'Failed to fetch owner dogs' });
   }
 });
 
