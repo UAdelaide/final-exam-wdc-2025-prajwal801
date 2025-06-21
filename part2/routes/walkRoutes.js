@@ -60,7 +60,7 @@ router.post('/:id/apply', async (req, res) => {
   }
 });
 
-// ✅ NEW: GET all dogs (for dropdowns or walker dashboard)
+// ✅ GET all dogs (for walker dashboard or dropdowns)
 router.get('/dogs', async (req, res) => {
   try {
     const [rows] = await db.query(`
@@ -69,7 +69,7 @@ router.get('/dogs', async (req, res) => {
     `);
     res.json(rows);
   } catch (error) {
-    console.error('❌ SQL Error in /dogs route:', error.message); // 👈 more detailed error message
+    console.error('❌ SQL Error in /dogs route:', error.message);
     res.status(500).json({ error: 'Failed to load dogs' });
   }
 });
