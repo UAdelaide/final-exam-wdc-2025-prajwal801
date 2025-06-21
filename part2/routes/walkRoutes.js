@@ -60,7 +60,7 @@ router.post('/:id/apply', async (req, res) => {
   }
 });
 
-// ✅ GET all dogs (for walker dashboard or dropdowns)
+
 router.get('/dogs', async (req, res) => {
   try {
     const [rows] = await db.query(`
