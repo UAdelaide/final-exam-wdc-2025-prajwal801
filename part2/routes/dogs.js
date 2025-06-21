@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../models/db');
 
-// GET all dogs (used for homepage display)
+
 router.get('/', async (req, res) => {
   try {
     const [rows] = await db.query(`
@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// GET dogs owned by currently logged-in owner
+
 router.get('/my-dogs', async (req, res) => {
   if (!req.session.user || req.session.user.role !== 'owner') {
     return res.status(403).json({ error: 'Unauthorized' });
