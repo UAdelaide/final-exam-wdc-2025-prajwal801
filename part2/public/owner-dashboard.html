@@ -96,7 +96,7 @@
 
         async function loadDogs() {
           try {
-            const res = await fetch('/api/my-dogs');
+            const res = await fetch('/api/users/dogs');  // ✅ Corrected URL
             dogs.value = await res.json();
           } catch (err) {
             error.value = 'Failed to load dogs';
@@ -131,7 +131,7 @@
 
         onMounted(() => {
           loadWalks();
-          loadDogs();
+          loadDogs(); // ✅ Will now call the correct endpoint
         });
 
         return {
