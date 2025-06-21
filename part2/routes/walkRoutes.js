@@ -31,6 +31,7 @@ router.post('/', async (req, res) => {
 
     res.status(201).json({ message: 'Walk request created', request_id: result.insertId });
   } catch (error) {
+    console.error('SQL Error:', error);
     res.status(500).json({ error: 'Failed to create walk request' });
   }
 });
@@ -68,7 +69,7 @@ router.get('/dogs', async (req, res) => {
     `);
     res.json(rows);
   } catch (error) {
-    console.error('SQL Error:', error);
+    console.error('❌ SQL Error in /dogs route:', error.message); // 👈 more detailed error message
     res.status(500).json({ error: 'Failed to load dogs' });
   }
 });
