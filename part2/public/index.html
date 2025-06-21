@@ -58,7 +58,7 @@
 
         async function loadDogsWithPhotos() {
           try {
-            const res = await fetch('/api/walks/dogs');  // Part 1: Backend dogs route
+            const res = await fetch('/api/dogs');  // Part 1: Backend dogs route
             const data = await res.json();
 
             const withPhotos = await Promise.all(
