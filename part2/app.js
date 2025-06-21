@@ -16,10 +16,9 @@ app.use(session({
   saveUninitialized: false
 }));
 
-// 📁 Serve static files
 app.use(express.static(path.join(__dirname, '/public')));
 
-// 🔗 Routes
+
 const walkRoutes = require('./routes/walkRoutes');
 const userRoutes = require('./routes/userRoutes');
 
