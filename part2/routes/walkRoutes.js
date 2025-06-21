@@ -64,12 +64,12 @@ router.post('/:id/apply', async (req, res) => {
 router.get('/dogs', async (req, res) => {
   try {
     const [rows] = await db.query(`
-      SELECT dog_id, name, breed, size, owner_id
+      SELECT dog_id, name, breed, size
       FROM Dogs
     `);
     res.json(rows);
   } catch (error) {
-    console.error('❌ SQL Error in /dogs route:', error);
+    console.error('❌ FULL SQL ERROR in /dogs route:', error); // 🔥 Full error logged
     res.status(500).json({ error: 'Failed to load dogs' });
   }
 });
