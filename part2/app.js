@@ -1,32 +1,29 @@
 const express = require('express');
-const router = express.Router();
-const db = require('./models/db');
+const path = require('path');
+const session = require('express-session');
+require('dotenv').config();
+
+const app = express();
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+app.use(session({
+  secret: 'dog-secret-key',
+  resave: false,
+  saveUninitialized: false
+}));
+
+app.use(express.static(path.join(__dirname, '/public')));
 
 
-router.get('/', async (req, res) => {
-  try {
-    const [rows] = await db.query('SELECT * FROM Dogs');
-    res.json(rows);
-  } catch (err) {
-    console.error(' Error in /api/dogs:', err.message);
-    res.status(500).json({ error: 'Failed to fetch dogs' });
-  }
-});
+const walkRoutes = require('./routes/walkRoutes');
+const userRoutes = require('./routes/userRoutes');
+const dogRoutes = require('./routes/dogs');
 
-router.get('/my-dogs', async (req, res) => {
-  if (!req.session.user || req.session.user.role !== 'owner') {
-    return res.status(403).json({ error: 'Unauthorized' });
-  }
 
-  try {
-    const [rows] = await db.query(
-      'SELECT dog_id, name FROM Dogs WHERE owner_id = ?',
-      [req.session.user.id]
-    );
-    res.json(rows);
-  } catch (err) {
-    res.status(500).json({ error: 'Failed to fetch dogs' });
-  }
-});
+app.use('/api/walks', walkRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/dogs', dogRoutes);
 
-module.exports = router;
+module.exports = app;
