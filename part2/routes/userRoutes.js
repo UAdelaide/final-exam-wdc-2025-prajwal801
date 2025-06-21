@@ -1,5 +1,5 @@
 const express = require('express');
-const router = express.Router(); // ✅ THIS LINE WAS MISSING
+const router = express.Router(); 
 const db = require('../models/db');
 
 // Login route
