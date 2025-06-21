@@ -60,11 +60,11 @@ router.post('/:id/apply', async (req, res) => {
   }
 });
 
-
+// ✅ Updated /dogs endpoint with owner_id
 router.get('/dogs', async (req, res) => {
   try {
     const [rows] = await db.query(`
-      SELECT dog_id, name, breed, size
+      SELECT dog_id, name, breed, size, owner_id
       FROM Dogs
     `);
     res.json(rows);
