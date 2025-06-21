@@ -69,7 +69,7 @@ router.get('/dogs', async (req, res) => {
     `);
     res.json(rows);
   } catch (error) {
-    console.error('❌ SQL Error in /dogs route:', error.message);
+    console.error('❌ SQL Error in /dogs route:', error);
     res.status(500).json({ error: 'Failed to load dogs' });
   }
 });
