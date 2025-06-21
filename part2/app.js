@@ -5,11 +5,11 @@ require('dotenv').config();
 
 const app = express();
 
-// 🔧 Add body parsers for forms and JSON
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// 🔐 Add session middleware
+
 app.use(session({
   secret: 'dog-secret-key',
   resave: false,
