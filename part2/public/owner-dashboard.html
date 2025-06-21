@@ -9,7 +9,12 @@
 </head>
 <body class="bg-light">
   <div id="app" class="container py-4">
-    <h1 class="mb-4 text-primary">Owner Dashboard</h1>
+
+    <!-- 🔧 Added: Logout Button -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1 class="text-primary">Owner Dashboard</h1>
+      <button class="btn btn-outline-danger" onclick="logout()">Logout</button>
+    </div>
 
     <!-- Walk request form -->
     <div class="card mb-4">
@@ -39,11 +44,9 @@
       </div>
     </div>
 
-
     <div v-if="message" class="alert alert-info">{{ message }}</div>
     <div v-if="error" class="alert alert-danger">{{ error }}</div>
 
-   
     <h2 class="mb-3">My Walk Requests</h2>
     <div class="row" v-if="walks.length > 0">
       <div class="col-md-6 mb-4" v-for="walk in walks" :key="walk.request_id">
@@ -128,6 +131,12 @@
         };
       }
     }).mount('#app');
+  </script>
+
+  <script>
+    function logout() {
+      window.location.href = '/logout';
+    }
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
